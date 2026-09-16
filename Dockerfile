@@ -30,23 +30,26 @@ RUN wget -q https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNET
     && mv omnetpp-6.1* omnetpp
 ENV OMNETPP_ROOT=/opt/omnetpp
 ENV PATH=${OMNETPP_ROOT}/bin:${PATH}
+SHELL ["/bin/bash", "-c"]
 RUN cd omnetpp \
+    && source ./setenv -q \
     && ./configure WITH_QTENV=no WITH_OSG=no WITH_OSGEARTH=no \
     && make -j"$(nproc)" MODE=release \
-    && rm -rf ide doc samples   # allège l'image (IDE inutile ici)
+    && rm -rf ide doc samples
 
 # --- INET Framework ------------------------------------------------------
 RUN wget -q https://github.com/inet-framework/inet/releases/download/v${INET_VERSION}/inet-${INET_VERSION}-src.tgz \
     && tar xzf inet-${INET_VERSION}-src.tgz && rm inet-${INET_VERSION}-src.tgz \
     && mv inet4.5* inet
 ENV INET_ROOT=/opt/inet
-RUN cd inet && make makefiles && make -j"$(nproc)" MODE=release
+RUN cd inet && source ./setenv && make makefiles && make -j"$(nproc)" MODE=release
 
 # --- Simu5G ---------------------------------------------------------------
 RUN wget -q -O simu5g.tgz https://github.com/Unipisa/Simu5G/archive/refs/tags/v${SIMU5G_VERSION}.tar.gz \
     && tar xzf simu5g.tgz && rm simu5g.tgz && mv Simu5G-${SIMU5G_VERSION} simu5g
 ENV SIMU5G_ROOT=/opt/simu5g
-RUN cd simu5g && make makefiles && make -j"$(nproc)" MODE=release
+RUN cd simu5g && source ${INET_ROOT}/setenv && source ./setenv -f \
+    && make makefiles && make -j"$(nproc)" MODE=release
 
 # --- Environnement d'exécution -------------------------------------------
 ENV PATH=${SIMU5G_ROOT}/bin:${INET_ROOT}/bin:${PATH}
