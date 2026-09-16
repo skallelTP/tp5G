@@ -1,0 +1,10 @@
+#!/bin/bash
+# tp-env [commande...] — exécute une commande DANS l'environnement Simu5G (opp_env), sans changer de dossier.
+# Sans argument : ouvre un shell interactif dans cet environnement.
+source ~/.venv/bin/activate
+source ~/.nix-profile/etc/profile.d/nix.sh
+WS=~/default_workspace
+if [ $# -eq 0 ]; then
+  exec opp_env shell -w "$WS" --no-chdir simu5g-1.3.0
+fi
+exec opp_env run -w "$WS" --no-isolated simu5g-1.3.0 -c "$*"

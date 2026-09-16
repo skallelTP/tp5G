@@ -1,0 +1,4 @@
+#!/bin/bash
+# tp-shell — ouvre un terminal dans l'environnement Simu5G, dans le dossier des TP
+cd /tp 2>/dev/null || cd ~
+exec ~/bin/tp-env

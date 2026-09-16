@@ -1,0 +1,8 @@
+#!/bin/bash
+# (se relance automatiquement dans l'environnement Simu5G si nécessaire)
+if [ -z "$SIMU5G_ROOT" ]; then exec ~/bin/tp-env "$(cd "$(dirname "$0")" && pwd)/$(basename "$0") $*"; fi
+# tp-export [results_dir] [out.csv] — exporte tous les scalaires (.sca) en CSV long (CSV-R)
+DIR=${1:-results}
+OUT=${2:-results.csv}
+opp_scavetool export -f "type =~ scalar" -F CSV-R -o "$OUT" $(find "$DIR" -name "*.sca")
+echo ">> $OUT écrit ($(wc -l < "$OUT") lignes)"
