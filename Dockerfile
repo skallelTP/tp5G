@@ -7,7 +7,7 @@
 FROM ghcr.io/omnetpp/opp_env:latest
 
 USER opp_env
-ENV HOME=/home/opp_env
+ENV PATH=/home/opp_env/bin:${PATH}
 WORKDIR /home/opp_env/default_workspace
 
 # Simu5G 1.3.0 et ses dépendances (OMNeT++, INET) — release uniquement, avec test de fumée
