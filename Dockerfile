@@ -16,9 +16,11 @@ RUN bash -c 'source ~/.venv/bin/activate \
     && cd ~/default_workspace \
     && opp_env install simu5g-1.3.0 --no-pause --build-modes release --smoke-test'
 
-# Outils d'analyse Python (dans le venv de opp_env)
-RUN bash -c 'source ~/.venv/bin/activate \
-        && ~/.local/bin/uv pip install "numpy<2" "pandas<3" "matplotlib<4" scipy seaborn jupyterlab ipywidgets'
+# Outils d'analyse Python (dans le venv de opp_env, via pip)
+RUN bash -c 'ls -la ~ ~/.venv/bin ~/.local/bin 2>&1 | head -60; \
+    ~/.venv/bin/python -m ensurepip --upgrade 2>/dev/null; \
+    ~/.venv/bin/python -m pip install --upgrade pip \
+    && ~/.venv/bin/python -m pip install "numpy<2" "pandas<3" "matplotlib<4" scipy seaborn jupyterlab ipywidgets'
 
 # Scripts des TP (tp-run, tp-export, tp-export-vec, tp-shell) — ~/bin est dans le PATH
 COPY --chown=opp_env:root scripts/ /home/opp_env/bin/
