@@ -3,7 +3,7 @@
 #  Mode headless (Cmdenv) + JupyterLab pour l'analyse des résultats.
 #  Build :  docker build -t tp5g:2026 .          (≈ 30-45 min, ~4 Go)
 # ---------------------------------------------------------------------------
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG OMNETPP_VERSION=6.1.0
 ARG INET_VERSION=4.5.4
@@ -12,13 +12,13 @@ ENV DEBIAN_FRONTEND=noninteractive TZ=Europe/Paris
 
 # --- Dépendances système -------------------------------------------------
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      build-essential pkg-config ccache clang lld gdb bison flex perl \
+      build-essential pkg-config ccache gdb bison flex m4 perl \
       python3 python3-pip python3-venv libpython3-dev \
       libxml2-dev zlib1g-dev libdw-dev \
       wget curl ca-certificates git nano less xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --no-cache-dir "numpy<2" "pandas<3" "matplotlib<4" "scipy<2" \
+RUN pip3 install --no-cache-dir --break-system-packages "numpy<2" "pandas<3" "matplotlib<4" "scipy<2" \
       seaborn jupyterlab ipywidgets posix_ipc
 
 WORKDIR /opt
