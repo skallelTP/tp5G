@@ -27,7 +27,7 @@ WORKDIR /opt
 RUN wget -q https://github.com/omnetpp/omnetpp/releases/download/omnetpp-${OMNETPP_VERSION}/omnetpp-${OMNETPP_VERSION}-linux-x86_64.tgz \
     && tar xzf omnetpp-${OMNETPP_VERSION}-linux-x86_64.tgz \
     && rm omnetpp-${OMNETPP_VERSION}-linux-x86_64.tgz \
-    && mv omnetpp-${OMNETPP_VERSION} omnetpp
+    && mv omnetpp-6.1* omnetpp
 ENV OMNETPP_ROOT=/opt/omnetpp
 ENV PATH=${OMNETPP_ROOT}/bin:${PATH}
 RUN cd omnetpp \
