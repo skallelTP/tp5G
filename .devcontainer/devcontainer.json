@@ -5,7 +5,7 @@
   "hostRequirements": { "cpus": 2, "memory": "8gb" },
   "forwardPorts": [8888],
   "portsAttributes": { "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" } },
-  "postCreateCommand": "sudo ln -sfn ${containerWorkspaceFolder}/tp /tp",
+    "postCreateCommand": "sudo chmod 1777 /tmp && sudo ln -sfn ${containerWorkspaceFolder}/tp /tp",
   "postStartCommand": "nohup /home/opp_env/bin/tp-jupyter > /tmp/jupyter.log 2>&1 &",
   "customizations": {
     "vscode": {
