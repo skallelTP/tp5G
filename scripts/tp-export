@@ -1,6 +1,0 @@
-#!/bin/bash
-# tp-export [results_dir] [out.csv] — exporte tous les scalaires (.sca) en CSV long (CSV-R)
-DIR=${1:-results}
-OUT=${2:-results.csv}
-opp_scavetool export -f "type =~ scalar" -F CSV-R -o "$OUT" $(find "$DIR" -name "*.sca")
-echo ">> $OUT écrit ($(wc -l < "$OUT") lignes)"

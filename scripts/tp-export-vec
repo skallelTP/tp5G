@@ -1,7 +1,0 @@
-#!/bin/bash
-# tp-export-vec <nom> [results_dir] [out.csv] — exporte des vecteurs (ex: voIPFrameDelay:vector)
-NAME=${1:?"usage: tp-export-vec <name> [results_dir] [out.csv]"}
-DIR=${2:-results}
-OUT=${3:-vectors.csv}
-opp_scavetool export -f "type =~ vector AND name =~ \"$NAME\"" -F CSV-R -o "$OUT" $(find "$DIR" -name "*.vec")
-echo ">> $OUT écrit"
