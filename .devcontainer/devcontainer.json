@@ -1,0 +1,19 @@
+{
+  "name": "TP 4G/5G Simu5G",
+  "image": "ghcr.io/skalleltp/tp5g:2026",
+  "remoteUser": "opp_env",
+  "hostRequirements": { "cpus": 2, "memory": "8gb" },
+  "forwardPorts": [8888],
+  "portsAttributes": { "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" } },
+  "postCreateCommand": "sudo ln -sfn ${containerWorkspaceFolder}/tp /tp",
+  "postStartCommand": "nohup /home/opp_env/bin/tp-jupyter > /tmp/jupyter.log 2>&1 &",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-toolsai.jupyter"],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "Simu5G",
+        "terminal.integrated.profiles.linux": { "Simu5G": { "path": "/home/opp_env/bin/tp-shell" } }
+      }
+    }
+  }
+}
