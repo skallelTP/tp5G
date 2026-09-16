@@ -18,7 +18,7 @@ RUN bash -c 'source ~/.venv/bin/activate \
 
 # Outils d'analyse Python (dans le venv de opp_env)
 RUN bash -c 'source ~/.venv/bin/activate \
-    && uv pip install "numpy<2" "pandas<3" "matplotlib<4" scipy seaborn jupyterlab ipywidgets'
+        && ~/.local/bin/uv pip install "numpy<2" "pandas<3" "matplotlib<4" scipy seaborn jupyterlab ipywidgets'
 
 # Scripts des TP (tp-run, tp-export, tp-export-vec, tp-shell) — ~/bin est dans le PATH
 COPY --chown=opp_env:root scripts/ /home/opp_env/bin/
