@@ -1,0 +1,15 @@
+{
+  "name": "TP 4G/5G Simu5G",
+  "image": "ghcr.io/skalleltp/tp5g:2026",
+  "hostRequirements": { "cpus": 2, "memory": "8gb" },
+  "forwardPorts": [8888],
+  "portsAttributes": { "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" } },
+  "postCreateCommand": "ln -sfn ${containerWorkspaceFolder}/tp /tp",
+  "postStartCommand": "nohup jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/tp > /tmp/jupyter.log 2>&1 &",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-toolsai.jupyter"],
+      "settings": { "terminal.integrated.cwd": "/tp" }
+    }
+  }
+}
