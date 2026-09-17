@@ -4,5 +4,6 @@ if [ -z "$SIMU5G_ROOT" ]; then exec ~/bin/tp-env "$(cd "$(dirname "$0")" && pwd)
 # tp-export [results_dir] [out.csv] — exporte tous les scalaires (.sca) en CSV long (CSV-R)
 DIR=${1:-results}
 OUT=${2:-results.csv}
-opp_scavetool export -f "type =~ scalar" -F CSV-R -o "$OUT" $(find "$DIR" -name "*.sca")
+if [ -z "$(find "$DIR" -name '*.sca' 2>/dev/null)" ]; then echo "Aucun fichier .sca sous $DIR"; exit 1; fi
+find "$DIR" -name '*.sca' -print0 | xargs -0 opp_scavetool export -f "type =~ scalar" -F CSV-R -o "$OUT"
 echo ">> $OUT écrit ($(wc -l < "$OUT") lignes)"

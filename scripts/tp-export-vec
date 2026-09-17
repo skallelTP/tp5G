@@ -5,5 +5,5 @@ if [ -z "$SIMU5G_ROOT" ]; then exec ~/bin/tp-env "$(cd "$(dirname "$0")" && pwd)
 NAME=${1:?"usage: tp-export-vec <name> [results_dir] [out.csv]"}
 DIR=${2:-results}
 OUT=${3:-vectors.csv}
-opp_scavetool export -f "type =~ vector AND name =~ \"$NAME\"" -F CSV-R -o "$OUT" $(find "$DIR" -name "*.vec")
+find "$DIR" -name '*.vec' -print0 | xargs -0 opp_scavetool export -f "type =~ vector AND name =~ \"$NAME\"" -F CSV-R -o "$OUT"
 echo ">> $OUT écrit"

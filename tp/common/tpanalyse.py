@@ -13,7 +13,9 @@ def load_scalars(csv_path):
     sca['value'] = pd.to_numeric(sca['value'], errors='coerce')
     iv = df[df.type == 'itervar'][['run', 'attrname', 'attrvalue']]
     iv = iv.pivot_table(index='run', columns='attrname', values='attrvalue', aggfunc='first')
-    iv = iv.apply(pd.to_numeric, errors='ignore')
+    for col in iv.columns:
+        try: iv[col] = pd.to_numeric(iv[col])
+        except (ValueError, TypeError): pass
     return sca, iv
 
 def kpi_par_run(sca, iv, name, module_filter=None, agg='mean'):

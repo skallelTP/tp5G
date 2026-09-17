@@ -7,6 +7,7 @@
 FROM ghcr.io/omnetpp/opp_env:latest
 
 USER opp_env
+ENV HOME=/home/opp_env
 ENV PATH=/home/opp_env/bin:${PATH}
 WORKDIR /home/opp_env/default_workspace
 
@@ -16,7 +17,7 @@ RUN bash -c 'source ~/.venv/bin/activate \
     && cd ~/default_workspace \
     && opp_env install simu5g-1.3.0 --no-pause --build-modes release --smoke-test'
 
-# Outils d'analyse Python (dans le venv de opp_env, via pip)
+# Outils d'analyse Python (dans le venv de opp_env)
 RUN bash -c 'ls -la ~ ~/.venv/bin ~/.local/bin 2>&1 | head -60; \
     ~/.venv/bin/python -m ensurepip --upgrade 2>/dev/null; \
     ~/.venv/bin/python -m pip install --upgrade pip \
