@@ -13,6 +13,7 @@ Environnement de simulation prêt à l'emploi (OMNeT++ 6.2 + INET 4.5.4 + Simu5G
 | `tp/TP1_umts` | TP1 — Du GSM (2G) à l'UMTS (3G) | Google Colab |
 | `tp/TP2_prise_en_main` | TP2 — Prise en main Simu5G, cellule LTE (4G) | Codespace |
 | `tp/TP3_scheduling` | TP3 — Scheduling LTE (4G) | Codespace |
+| `tp/TP4_handover` | TP4 — Mobilité et handover LTE (4G) | Codespace |
 
 Chaque dossier contient le sujet (`TPx_Sujet_Etudiants.pdf`), les fichiers de simulation (`omnetpp.ini`) et le notebook à compléter (`TPx_analyse.ipynb`).
 
@@ -22,8 +23,9 @@ cd /tp/TP2_prise_en_main
 tp-run SingleCell-DL          # lance une config, run 0
 tp-run Charge-DL 0..5         # plusieurs runs en parallèle
 tp-export results results.csv # résultats -> CSV pour le notebook
+tp-export-vec servingCell:vector results/AvecHO cell.csv   # séries temporelles (TP4)
 ```
-Pour le notebook : ouvrez le `.ipynb`, choisissez le noyau Python de `/home/opp_env/.venv` (ou installez pandas avec la première cellule si besoin).
+Pour le notebook : ouvrez le `.ipynb`, choisissez le noyau **Python (Simu5G)** s'il est proposé, sinon n'importe quel Python 3 : la première cellule du notebook rend les bibliothèques disponibles.
 
 En fin de séance, sauvegardez votre travail : **Source Control** (icône à gauche) → message → **Commit** → **Sync**.
 
