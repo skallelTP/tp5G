@@ -27,3 +27,17 @@ def kpi_par_run(sca, iv, name, module_filter=None, agg='mean'):
         d = d[d.module.str.contains(module_filter, regex=False)]
     g = d.groupby('run')['value'].agg(agg).rename(name)
     return iv.join(g, how='inner').reset_index()
+
+
+def load_vectors(csv_path):
+    """Charge un export CSV-R de vecteurs (tp-export-vec) et renvoie un DataFrame long :
+    colonnes run, module, name, t (s), value — une ligne par point."""
+    import numpy as np
+    df = pd.read_csv(csv_path)
+    vec = df[df.type == 'vector'][['run', 'module', 'name', 'vectime', 'vecvalue']]
+    rows = []
+    for _, r in vec.iterrows():
+        t = np.fromstring(str(r.vectime), sep=' ')
+        v = np.fromstring(str(r.vecvalue), sep=' ')
+        rows.append(pd.DataFrame({'run': r.run, 'module': r.module, 'name': r['name'], 't': t, 'value': v}))
+    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame(columns=['run','module','name','t','value'])
